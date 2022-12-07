@@ -1,0 +1,23 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+</head>
+<body>
+    <h2>Click the get Video Button to start your webcam</h2>
+    <video  id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"></video>
+    <br>
+    
+    <input type=button value="Get Video" onclick="{GetVideo()}">
+    <input type=button value="Take Picture" onclick="{TakePicture()}">
+    <input type=button value="Upload" onclick="{Upload()}">
+
+    <p>Name: <input type="text" id="name"></p>
+    <canvas id="canvas"></canvas>
+    <div id="photos"></div>
+
+</body>
+<script src="{% static 'js/Webcam.js' %}"></script>
+</html>
