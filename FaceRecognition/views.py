@@ -30,9 +30,9 @@ def UploadPhoto(_request):
         nameList = FaceRecognition.GetNameList('tmp/' + filePath)
 
         if not nameList:
-            resultString = 'No faces image or not registered face'
-        else:
+            resultString = name + ' has registered with the server'
             base64ToPng(img, 'img/', filePath)
+        else:
             resultString = 'Hello ' + nameList[0]
         
         os.remove('tmp/' + filePath)
