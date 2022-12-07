@@ -54,14 +54,16 @@ function TakePicture(){
     const img = document.createElement('img');
     img.setAttribute('src', imgUrl);
     img.setAttribute('id', 'Base64Image');
-    photos.appendChild(img);
+    photos = img;
   }
 }
 
+var httpRequest = new XMLHttpRequest();
 function Upload(){
   var imageName = encodeURIComponent(document.getElementById('name').value);
-  //Initiate the request
-  var httpRequest = new XMLHttpRequest();            
+  //Initiate the request   
+
+  httpRequest.onreadystatechange = callFunc;
   httpRequest.open('POST', 'UploadPhoto', true);
 
   //Send proper headers
@@ -71,4 +73,14 @@ function Upload(){
 
   //Send your data
   httpRequest.send(currentImage);
+}
+
+function callFunc(){
+	if(httpRequest.readyState == 4){
+		if(httpRequest.status == 200){
+			var responseData = httpRequest.responseText;
+      const obj = JSON.parse(responseData);
+			document.getElementById("result").innerHTML = obj.result;
+		}
+	}
 }
