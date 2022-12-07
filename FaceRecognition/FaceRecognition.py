@@ -30,13 +30,13 @@ def setRegisteredImage(_filePathList):
 def GetNameList(_imagePath):
     registeredFileList = getFileListFromPath('img/')
     registeredFaceEncodingList, registeredNameList = setRegisteredImage(registeredFileList)
-
+    
     image = cv2.imread(_imagePath)
     if image is None:
         return None
 
     #Use down-sampling image for faster face recognition processing
-    #image = cv2.resize(image, (0, 0), fx=0.5, fy=0.5)
+    image = cv2.resize(image, (0, 0), fx=0.5, fy=0.5)
 
     #Convert BGR to RGB
     rgbImage = image[:, :, ::-1]
