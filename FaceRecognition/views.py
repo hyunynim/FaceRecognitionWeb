@@ -1,26 +1,45 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
+from django.http import JsonResponse
+
 import base64
+import os
 import random
 import string
 from urllib import parse
+
+from . import FaceRecognition
 
 # Create your views here.
 def GetMainPage(_request):
     return render(_request, 'FaceRecognition/main.html')
 
 def UploadPhoto(_request):
+    resultString = ''
     if _request.method == "POST":
         name = str(_request.headers['ImageName'])
 
         decodedName = parse.unquote(name)
 
-        print(decodedName)
         rawData = str(_request.body)
         header, img = rawData.split(';base64,')
-        base64ToPng(img, decodedName + '.png')
+        filePath = decodedName + '.png'
+        
+        base64ToPng(img, 'tmp/', filePath)
 
-    #TODO: Upload result page
-    return render(_request, 'FaceRecognition/main.html')
+        nameList = FaceRecognition.GetNameList('tmp/' + filePath)
+
+        if not nameList:
+            resultString = 'No faces image or not registered face'
+        else:
+            base64ToPng(img, 'img/', filePath)
+            resultString = 'Hello ' + nameList[0]
+        
+        os.remove('tmp/' + filePath)
+        context = {
+            'result': resultString,
+        }
+        return JsonResponse(context)
 
 def base64ToPng(_base64String, _root, _fileName):
     decodedData = base64.b64decode(_base64String)
