@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import FaceRecognition.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", FaceRecognition.views.GetMainPage),
+    path("UploadPhoto", FaceRecognition.views.UploadPhoto),
 ]
