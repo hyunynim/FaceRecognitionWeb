@@ -7,9 +7,11 @@
 </head>
 <body>
     <h2>Click the get Video Button to start your webcam</h2>
-    <video  id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"></video>
+    <video  id="myVideo" playsinline style="border: 1px solid #ddd;"></video>
     <br>
-    
+    <h3 id="result">{{result}}</h2>
+    <br>
+    {% csrf_token %}
     <input type=button value="Get Video" onclick="{GetVideo()}">
     <input type=button value="Take Picture" onclick="{TakePicture()}">
     <input type=button value="Upload" onclick="{Upload()}">
