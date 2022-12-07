@@ -22,10 +22,10 @@ def UploadPhoto(_request):
     #TODO: Upload result page
     return render(_request, 'FaceRecognition/main.html')
 
-def base64ToPng(_base64String, _fileName):
+def base64ToPng(_base64String, _root, _fileName):
     decodedData = base64.b64decode(_base64String)
 
-    image = open('img/' + _fileName,'wb') 
+    image = open(_root + _fileName,'wb') 
     image.write(decodedData)
     image.close()
 
